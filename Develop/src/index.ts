@@ -85,4 +85,30 @@ async function viewAllRoles(): Promise<void> {
     app();
 }
 
-  
+async function addEmployee(): Promise<void> {
+   const roles = await pool.query("SELECT id as value, title as name FROM role");
+   const employees = await pool.query("SELECT id as value, first_name || ' ' || last_name as name FROM employee");
+   inquirer.prompt([])
+}
+{
+    type: "input",
+    name: "first_name",
+    message: "Enter employee's first name"
+},
+{
+    type: "input",
+    name: "last_name",
+    message: "Enter employee's last name"
+},
+{
+    type: "list",
+    name: "role_id",
+    message: "Select employee's role",
+    choices: roles.rows
+},
+{
+    type: "list",
+    name: "manager_id",
+    message: "Select employee's manager",
+    choices: employees.rows
+}
