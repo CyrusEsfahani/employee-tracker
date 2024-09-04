@@ -53,16 +53,36 @@ function app(): void {
                 break;
 
             case "Quit":
-                console.log("Goodbye!");
+                
                 pool.end();
                 break;
+                default:
+                    console.log("Invalid action");
+                    app();
         }
     });
 }
 
 async function viewAllEmployees(): Promise<void> {
-    const sql = "SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee manager ON employee.manager_id = manager.id";
+    const sql = "SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, manager.first_name || ' ' || manager.last_name AS manager FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee manager ON manager_id = employee.manager.id;"
+
     const employees = await pool.query(sql);
     console.table(employees.rows);
     app();
 }
+
+async function viewAllDepartments(): Promise<void> {
+    const sql = "SELECT * FROM department";
+    const departments = await pool.query(sql);
+    console.table(departments.rows);
+    app();
+}
+
+async function viewAllRoles(): Promise<void> {
+    const sql = "SELECT role.id, role.title, role.salary, department.name AS department FROM role LEFT JOIN department ON role.department_id = department.id;";
+    const roles = await pool.query(sql);
+    console.table(roles.rows);
+    app();
+}
+
+  
