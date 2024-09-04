@@ -3,19 +3,15 @@
       "target": "ES2020",
       "useDefineForClassFields": true,
       "lib": ["ES2020", "DOM", "DOM.Iterable"],
-      "module": "NodeNext",
+      "module": "ESNext",
       "skipLibCheck": true,
       "rootDir": "src",
       "outDir": "dist",
-  
-
-    //  /* Bundler mode */
-    // "moduleResolution": "bundler",
-    // "resolveJsonModule": true,
-    // "isolatedModules": true,
-    // "jsx": "react-jsx",
-
-
+      /* Bundler mode */
+      "moduleResolution": "bundler",
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "jsx": "react-jsx",
       /* Linting */
       "strict": true,
       "noUnusedLocals": true,
@@ -23,5 +19,4 @@
       "noFallthroughCasesInSwitch": true
     },
     "include": ["src"]
-  }
-  
+}
