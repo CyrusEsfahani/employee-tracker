@@ -21,4 +21,4 @@ const connectToDb = async () => {
   }
 };
 
-module.exports = pool
+export { pool };
