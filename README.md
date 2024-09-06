@@ -4,7 +4,7 @@
 
 ## Description
 
-**Employee-Tracker:** Command-line application that manages' a company's employee database, using Node.js, inquirer, and PostgreSQL. This interface allos non-developers to easily view and interact with inofrmation stored in databases. This interface is also called a content management system (CMS).
+**Employee-Tracker:** Command-line application that manages' a company's employee database, using Node.js, inquirer, and PostgreSQL. This interface allows non-developers to easily view and interact with inofrmation stored in databases. This interface is also called a content management system (CMS).
 
 ## Table of Contents
 
