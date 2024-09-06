@@ -9,36 +9,23 @@ function app(): void {
         choices: [
             "View All Departments",
             "View All Roles",
-           "view All Employees by Department",
             "View All Employees",
             "Add A Department",
             "Add A Role",
             "Add An Employee",
             "Update An Employee Role",
-            "Quit"
+        
         ]
     }).then(({ action }) => {
         switch (action) {
             case "View All Employees":
                 viewAllEmployees();
                 break;
-            case "view All Employees by Department":
-                viewAllEmployeesByDepartment();
-                break;
-            case "view All Employees by Manager":
-                // viewAllEmployeesByManager();
-                break;
             case "Add An Employee":
                 addEmployee();
                 break;
-            case "Remove Employee":
-                // removeEmployee();
-                break;
-            case "Update Employee Role":
-                // updateEmployeeRole();
-                break;
-            case "Update Employee Manager":
-                // updateEmployeeManager();
+            case "Update An Employee Role":
+                updateEmployeeRole();
                 break;
             case "View All Roles":
                 viewAllRoles();
@@ -49,8 +36,8 @@ function app(): void {
             case "view All Departments":
                 viewAllDepartments();
                 break;
-            case "Add Department":
-                // addDepartment();
+            case "Add A Department":
+                addDepartment();
                 break;
             
 
@@ -121,21 +108,6 @@ async function addEmployee(): Promise<void> {
    })
 }
 
-async function viewAllEmployeesByDepartment(): Promise<void> {
-    const departments = await pool.query("SELECT id as value, name as name FROM department");
-    inquirer.prompt({
-        type: "list",
-        name: "department_id",
-        message: "Select department",
-        choices: departments.rows
-    }).then((answers) => {
-        const sql = "SELECT employee.id, employee.first_name AS \"first name\", employee.last_name AS \"last name\", role.title, department.name AS department, role.salary, manager.first_name || ' ' || manager.last_name AS manager FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee manager ON manager.id = employee.manager_id WHERE department.id = $1;";
-        pool.query(sql, [answers.department_id]).then((res) => {
-            console.table(res.rows);
-            app();
-        });
-    });
-}
 
 async function addRole(): Promise<void> {
     const departments = await pool.query("SELECT id as value, name as name FROM department");
@@ -159,6 +131,43 @@ async function addRole(): Promise<void> {
     ]).then((answers) => {
         const sql = "INSERT INTO role (title, salary, department_id) VALUES ($1, $2, $3)";
         pool.query(sql, [answers.title, answers.salary, answers.department_id]);
+        app();
+    });
+}
+
+async function updateEmployeeRole(): Promise<void> {
+    const employees = await pool.query("SELECT id as value, first_name || ' ' || last_name as name FROM employee");
+    const roles = await pool.query("SELECT id as value, title as name FROM role");
+    inquirer.prompt([
+        {
+            type: "list",
+            name: "employee_id",
+            message: "Select employee to update",
+            choices: employees.rows
+        },
+        {
+            type: "list",
+            name: "role_id",
+            message: "Select new role",
+            choices: roles.rows
+        }
+    ]).then((answers) => {
+        const sql = "UPDATE employee SET role_id = $1 WHERE id = $2";
+        pool.query(sql, [answers.role_id, answers.employee_id]);
+        app();
+    });
+}
+
+async function addDepartment(): Promise<void> {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "Enter department name"
+        }
+    ]).then((answers) => {
+        const sql = "INSERT INTO department (name) VALUES ($1)";
+        pool.query(sql, [answers.name]);
         app();
     });
 }

@@ -4,7 +4,7 @@
 
 ## Description
 
-**Employee-Tracker** A command-line application that manages' a company's employee database, using Node.js, inquirer, and PostgreSQL. This interface allos non-developers to easily view and interact with inofrmation stored in databases. This interface is also called a content management system (CMS).
+**Employee-Tracker:** command-line application that manages' a company's employee database, using Node.js, inquirer, and PostgreSQL. This interface allos non-developers to easily view and interact with inofrmation stored in databases. This interface is also called a content management system (CMS).
 
 ## Table of Contents
 
@@ -22,11 +22,11 @@ https://github.com/CyrusEsfahani/employee-tracker.git
 
 ## Usage
 
-- **Update employee managers:**
-- **View employees by manager:**
-- **View employees by department:**
-- **Delete departments, roles, and employees:**
-- **View the total utilized budget of a department—in other words, the combined salaries of all employees in that department:**
+- **Update employee managers.**
+- **View employees by manager.**
+- **View employees by department.**
+- **Delete departments, roles, and employees.**
+- **View the total utilized budget of a department—in other words, the combined salaries of all employees in that department.**
 
 ## License
 
