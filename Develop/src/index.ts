@@ -33,7 +33,7 @@ function app(): void {
             case "Add A Role":
                 addRole();
                 break;
-            case "view All Departments":
+            case "View All Departments":
                 viewAllDepartments();
                 break;
             case "Add A Department":
@@ -41,13 +41,6 @@ function app(): void {
                 break;
             
 
-            case "Quit":
-                
-                pool.end();
-                break;
-                default:
-                    console.log("Invalid action");
-                    app();
         }
     });
 }
